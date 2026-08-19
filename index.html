@@ -4,18 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Meals and Feels Tracker</title>
+    <!-- Importing a cute handwritten cursive font from Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #fafafa;
+            --bg: #fffbfb;
             --card-bg: #ffffff;
-            --text: #262626;
-            --secondary: #8e8e8e;
-            --border: #dbdbdb;
-            --primary: #0095f6;
+            --text: #4a4046;
+            --secondary: #9c8a93;
+            --border: #f2e3e8;
+            --primary: #ff6584;
+            --accent-soft: #ffe6ed;
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             background-color: var(--bg);
             color: var(--text);
             margin: 0;
@@ -26,19 +29,23 @@
         header {
             position: sticky;
             top: 0;
-            background: var(--card-bg);
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
             border-bottom: 1px solid var(--border);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 12px 16px;
+            padding: 14px 20px;
             z-index: 100;
         }
 
         header h1 {
             margin: 0;
-            font-size: 18px;
+            font-family: 'Caveat', cursive;
+            font-size: 32px;
             font-weight: 700;
+            color: #e65c7b;
+            letter-spacing: 0.5px;
         }
 
         .screen {
@@ -50,31 +57,37 @@
         }
 
         .form-container {
-            padding: 16px;
+            padding: 20px;
             max-width: 450px;
             margin: 0 auto;
         }
 
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 22px;
         }
 
         label {
             display: block;
-            font-size: 12px;
-            font-weight: 600;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
             color: var(--secondary);
             text-transform: uppercase;
             margin-bottom: 8px;
         }
 
         .camera-trigger {
-            border: 2px dashed var(--border);
-            border-radius: 12px;
+            border: 2px dashed #f2cbda;
+            border-radius: 16px;
             text-align: center;
             padding: 40px 20px;
-            background: #fff;
+            background: #fff5f8;
             cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .camera-trigger:active {
+            background: #ffe6ed;
         }
 
         .camera-trigger input {
@@ -91,20 +104,23 @@
             width: 100%;
             max-height: 400px;
             object-fit: cover;
-            border-radius: 8px;
+            border-radius: 16px;
             display: block;
+            box-shadow: 0 4px 12px rgba(255, 101, 132, 0.15);
         }
 
         .retake-btn {
             position: absolute;
-            top: 10px;
-            right: 10px;
-            background: rgba(0, 0, 0, 0.7);
+            top: 12px;
+            right: 12px;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(4px);
             color: white;
             border: none;
-            padding: 6px 12px;
+            padding: 6px 14px;
             border-radius: 20px;
             font-size: 12px;
+            font-weight: 500;
             cursor: pointer;
         }
 
@@ -112,29 +128,36 @@
             width: 100%;
             background: #fff;
             border: 1px solid var(--border);
-            border-radius: 8px;
-            color: #000;
-            padding: 12px;
+            border-radius: 12px;
+            color: var(--text);
+            padding: 12px 14px;
             font-size: 14px;
             box-sizing: border-box;
+            outline: none;
+            transition: 0.2s;
+        }
+
+        input[type="text"]:focus, textarea:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(255, 101, 132, 0.1);
         }
 
         textarea {
             resize: none;
-            height: 70px;
+            height: 75px;
         }
 
         .heart-picker {
             display: flex;
             gap: 16px;
-            font-size: 32px;
+            font-size: 30px;
             cursor: pointer;
         }
 
         .emoji-picker {
             display: flex;
             gap: 20px;
-            font-size: 32px;
+            font-size: 30px;
             cursor: pointer;
         }
 
@@ -142,40 +165,46 @@
             padding: 4px;
             border-radius: 50%;
             transition: 0.2s;
-            opacity: 0.3;
+            opacity: 0.35;
             background: transparent;
             border: 2px solid transparent;
         }
 
         .emoji-option.selected {
             opacity: 1;
-            background: #e6f2ff;
+            background: var(--accent-soft);
             transform: scale(1.15);
             border-color: var(--primary);
         }
 
         .save-btn {
             width: 100%;
-            background: #ff3b30;
+            background: linear-gradient(135deg, #ff6584, #ff8da1);
             color: white;
             border: none;
             padding: 14px;
-            border-radius: 8px;
+            border-radius: 14px;
             font-weight: 600;
             font-size: 16px;
             cursor: pointer;
             margin-top: 10px;
+            box-shadow: 0 4px 12px rgba(255, 101, 132, 0.3);
+            transition: 0.2s;
+        }
+
+        .save-btn:active {
+            transform: scale(0.98);
         }
 
         .export-btn {
             width: 100%;
-            background: #e0e0e0;
-            color: #333;
+            background: #f4eaed;
+            color: var(--secondary);
             border: none;
             padding: 12px;
-            border-radius: 8px;
+            border-radius: 12px;
             font-weight: 600;
-            font-size: 14px;
+            font-size: 13px;
             cursor: pointer;
             margin-top: 10px;
         }
@@ -185,6 +214,7 @@
             border-top: 1px solid var(--border);
             border-bottom: 1px solid var(--border);
             margin-bottom: 16px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
         }
 
         .feed-post-header {
@@ -193,7 +223,16 @@
             align-items: center;
             padding: 12px 16px;
             font-weight: 600;
-            font-size: 14px;
+            font-size: 15px;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .delete-btn {
+            background: none;
+            border: none;
+            color: #ff6584;
+            font-size: 15px;
+            cursor: pointer;
         }
 
         .feed-img {
@@ -217,14 +256,17 @@
 
         .feed-desc {
             font-size: 14px;
-            color: #333;
+            color: #555;
             margin-top: 6px;
+            line-height: 1.4;
         }
 
         .feed-date {
-            font-size: 11px;
+            font-size: 10px;
             color: var(--secondary);
             text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 600;
         }
 
         nav {
@@ -232,28 +274,37 @@
             bottom: 0;
             left: 0;
             width: 100%;
-            background: var(--card-bg);
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
             border-top: 1px solid var(--border);
             display: flex;
             justify-content: space-around;
-            padding: 12px 0;
+            padding: 10px 0;
             z-index: 100;
         }
 
         nav button {
             background: none;
             border: none;
-            font-size: 16px;
+            font-size: 14px;
             font-weight: 600;
-            color: #333;
+            color: var(--secondary);
             cursor: pointer;
+            padding: 6px 16px;
+            border-radius: 20px;
+            transition: 0.2s;
+        }
+
+        nav button.active-nav {
+            color: var(--primary);
+            background: var(--accent-soft);
         }
     </style>
 </head>
 <body>
 
     <header>
-        <h1 id="headerTitle">Meals and Feels</h1>
+        <h1 id="headerTitle">Meals & Feels ✨</h1>
     </header>
 
     <!-- CREATE SCREEN -->
@@ -262,8 +313,8 @@
             <div class="form-group">
                 <label>Photo</label>
                 <div class="camera-trigger" id="cameraTrigger" onclick="document.getElementById('nativeCameraInput').click()">
-                    <span style="font-size: 48px;">📸</span>
-                    <p style="margin: 8px 0 0 0; font-size: 14px; color: var(--secondary);">Tap to take photo or choose from library</p>
+                    <span style="font-size: 40px;">📸</span>
+                    <p style="margin: 8px 0 0 0; font-size: 13px; font-weight: 500; color: #b08a97;">Tap to snap or pick a photo</p>
                     <input type="file" id="nativeCameraInput" accept="image/*" onchange="handlePhoto(event)">
                 </div>
                 
@@ -275,7 +326,7 @@
 
             <div class="form-group">
                 <label>Food Name (Optional)</label>
-                <input type="text" id="foodName" placeholder="e.g., Homemade Tacos">
+                <input type="text" id="foodName" placeholder="e.g., Iced Brown Sugar Latte">
             </div>
 
             <div class="form-group">
@@ -301,25 +352,25 @@
 
             <div class="form-group">
                 <label>Notes (Optional)</label>
-                <textarea id="foodDesc" placeholder="How was the experience?"></textarea>
+                <textarea id="foodDesc" placeholder="Add any cute details or notes..."></textarea>
             </div>
 
-            <button class="save-btn" onclick="saveMealPost()">Save Meal</button>
+            <button class="save-btn" onclick="saveMealPost()">Save Meal 💕</button>
         </div>
     </div>
 
     <!-- FEED SCREEN -->
     <div id="feedScreen" class="screen">
         <div id="feedContainer"></div>
-        <div style="padding: 0 16px 25px 16px;">
-            <button class="export-btn" onclick="exportData()">Export Data (JSON)</button>
+        <div style="padding: 0 20px 30px 20px;">
+            <button class="export-btn" onclick="exportData()">Export Backup (JSON)</button>
         </div>
     </div>
 
     <!-- BOTTOM NAVIGATION -->
     <nav>
-        <button onclick="switchTab('create')">📸 New Meal</button>
-        <button onclick="switchTab('feed')">🏠 View Feed</button>
+        <button id="navCreate" class="active-nav" onclick="switchTab('create')">📸 New Meal</button>
+        <button id="navFeed" onclick="switchTab('feed')">🏡 Feed</button>
     </nav>
 
 <script>
@@ -329,13 +380,17 @@
 
     function switchTab(tab) {
         document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+        document.querySelectorAll('nav button').forEach(b => b.classList.remove('active-nav'));
+        
         if (tab === 'feed') {
             document.getElementById('feedScreen').classList.add('active');
-            document.getElementById('headerTitle').innerText = 'Your Meal Feed';
+            document.getElementById('headerTitle').innerText = 'Your Food Diary 🌸';
+            document.getElementById('navFeed').classList.add('active-nav');
             renderFeed();
         } else {
             document.getElementById('createScreen').classList.add('active');
-            document.getElementById('headerTitle').innerText = 'Meals and Feels';
+            document.getElementById('headerTitle').innerText = 'Meals & Feels ✨';
+            document.getElementById('navCreate').classList.add('active-nav');
         }
     }
 
@@ -408,23 +463,35 @@
         switchTab('feed');
     }
 
+    function deletePost(index) {
+        if (confirm("Delete this meal entry?")) {
+            const posts = JSON.parse(localStorage.getItem('meals_and_feels_data') || '[]');
+            posts.splice(index, 1);
+            localStorage.setItem('meals_and_feels_data', JSON.stringify(posts));
+            renderFeed();
+        }
+    }
+
     function renderFeed() {
         const container = document.getElementById('feedContainer');
         const posts = JSON.parse(localStorage.getItem('meals_and_feels_data') || '[]');
 
         if (posts.length === 0) {
-            container.innerHTML = `<div style="text-align: center; padding: 60px 20px; color: var(--secondary);">No meals logged yet. Tap "New Meal" below to share your first post!</div>`;
+            container.innerHTML = `<div style="text-align: center; padding: 70px 20px; color: var(--secondary); font-size: 14px;">No meals logged yet. Tap "New Meal" below to share your first post! ✨</div>`;
             return;
         }
 
         container.innerHTML = '';
-        posts.forEach(p => {
+        posts.forEach((p, index) => {
             const postDiv = document.createElement('div');
             postDiv.className = 'feed-post';
             postDiv.innerHTML = `
                 <div class="feed-post-header">
                     <span>${p.name || 'Unnamed Meal'}</span>
-                    <span style="font-size: 24px;">${p.emoji || ''}</span>
+                    <div style="display: flex; align-items: center; gap: 12px;">
+                        <span style="font-size: 22px;">${p.emoji || ''}</span>
+                        <button class="delete-btn" onclick="deletePost(${index})">🗑️</button>
+                    </div>
                 </div>
                 <img src="${p.image}" class="feed-img" alt="Food Photo">
                 <div class="feed-content">
