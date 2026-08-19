@@ -445,7 +445,13 @@
         };
 
         posts.unshift(newPost);
-        localStorage.setItem('meals_and_feels_data', JSON.stringify(posts));
+        
+        try {
+            localStorage.setItem('meals_and_feels_data', JSON.stringify(posts));
+        } catch (e) {
+            alert('Your photos are too large or storage is full! Try a smaller image or clearing space.');
+            return;
+        }
 
         // Reset Form Inputs
         photoDataUrl = '';
@@ -498,7 +504,7 @@
                         <span>${p.hearts}</span>
                         <span class="feed-date">${p.date}</span>
                     </div>
-                    ${p.desc ? `<div class="feed-desc"><b>${p.name ? p.name + ' — ' : ''}</b>${p.desc}</div>` : (p.name ? `<div class="feed-desc"><b>${p.name}</b></div>` : '')}
+                    ${p.desc ? `<div class="feed-desc">${p.desc}</div>` : ''}
                 </div>
             `;
             container.appendChild(postDiv);
