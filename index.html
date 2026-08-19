@@ -4,17 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Meals and Feels Tracker</title>
-    <!-- Importing a cute handwritten cursive font from Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <!-- Importing Architects Daughter & Inter fonts from Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #fffbfb;
+            --bg: #fffbfd;
             --card-bg: #ffffff;
             --text: #4a4046;
             --secondary: #9c8a93;
-            --border: #f2e3e8;
+            --border: #f4e3eb;
             --primary: #ff6584;
-            --accent-soft: #ffe6ed;
+            --pastel-yellow: #fef9e7;
+            --pastel-blue: #e8f4fd;
+            --pastel-pink: #fff0f3;
         }
 
         body {
@@ -41,11 +43,10 @@
 
         header h1 {
             margin: 0;
-            font-family: 'Caveat', cursive;
-            font-size: 32px;
+            font-family: 'Architects Daughter', cursive;
+            font-size: 26px;
             font-weight: 700;
-            color: #e65c7b;
-            letter-spacing: 0.5px;
+            color: #d94f6d;
         }
 
         .screen {
@@ -54,6 +55,12 @@
 
         .screen.active {
             display: block;
+        }
+
+        /* Feed screen gets the pastel pink background styling */
+        #feedScreen.active {
+            background-color: var(--pastel-pink);
+            min-height: calc(100vh - 60px);
         }
 
         .form-container {
@@ -76,18 +83,15 @@
             margin-bottom: 8px;
         }
 
+        /* New photo table/box with pastel yellow background */
         .camera-trigger {
-            border: 2px dashed #f2cbda;
+            border: 2px dashed #f5dfa8;
             border-radius: 16px;
             text-align: center;
             padding: 40px 20px;
-            background: #fff5f8;
+            background: var(--pastel-yellow);
             cursor: pointer;
             transition: 0.2s;
-        }
-
-        .camera-trigger:active {
-            background: #ffe6ed;
         }
 
         .camera-trigger input {
@@ -106,7 +110,7 @@
             object-fit: cover;
             border-radius: 16px;
             display: block;
-            box-shadow: 0 4px 12px rgba(255, 101, 132, 0.15);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
         }
 
         .retake-btn {
@@ -172,9 +176,9 @@
 
         .emoji-option.selected {
             opacity: 1;
-            background: var(--accent-soft);
+            background: var(--pastel-blue);
             transform: scale(1.15);
-            border-color: var(--primary);
+            border-color: #3b99ef;
         }
 
         .save-btn {
@@ -189,18 +193,13 @@
             cursor: pointer;
             margin-top: 10px;
             box-shadow: 0 4px 12px rgba(255, 101, 132, 0.3);
-            transition: 0.2s;
-        }
-
-        .save-btn:active {
-            transform: scale(0.98);
         }
 
         .export-btn {
             width: 100%;
-            background: #f4eaed;
+            background: #ffffff;
             color: var(--secondary);
-            border: none;
+            border: 1px solid var(--border);
             padding: 12px;
             border-radius: 12px;
             font-weight: 600;
@@ -224,7 +223,7 @@
             padding: 12px 16px;
             font-weight: 600;
             font-size: 15px;
-            font-family: 'Inter', sans-serif;
+            font-family: 'Architects Daughter', cursive;
         }
 
         .delete-btn {
@@ -297,7 +296,7 @@
 
         nav button.active-nav {
             color: var(--primary);
-            background: var(--accent-soft);
+            background: var(--pastel-blue);
         }
     </style>
 </head>
@@ -314,7 +313,7 @@
                 <label>Photo</label>
                 <div class="camera-trigger" id="cameraTrigger" onclick="document.getElementById('nativeCameraInput').click()">
                     <span style="font-size: 40px;">📸</span>
-                    <p style="margin: 8px 0 0 0; font-size: 13px; font-weight: 500; color: #b08a97;">Tap to snap or pick a photo</p>
+                    <p style="margin: 8px 0 0 0; font-size: 13px; font-weight: 500; color: #8a7c5b;">Tap to snap or pick a photo</p>
                     <input type="file" id="nativeCameraInput" accept="image/*" onchange="handlePhoto(event)">
                 </div>
                 
